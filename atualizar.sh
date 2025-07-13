@@ -1,21 +1,14 @@
 #!/bin/bash
+# Cores para o terminal
+GREEN='\033[1;32m'
+BLUE='\033[1;34m'
+NC='\033[0m' # Sem cor
+clear
+echo -e "${BLUE}=========================================="
+echo -e "${GREEN}     🔄 Atualizando bot Sanizinha...     "
+echo -e "${BLUE}==========================================${NC}"
+sleep 1
+# Atualizando o repositório
+git pull origin main
 
-echo ""
-echo "🔄 Atualizando repositório..."
-echo ""
-
-git add .
-git commit -m "Atualização automática"
-
-echo ""
-echo "📤 Enviando para o repositório remoto..."
-echo ""
-
-if git push; then
-  echo ""
-  echo "✅ Repositório atualizado com sucesso!"
-else
-  echo ""
-  echo "❌ Falha ao enviar para o repositório remoto."
-  echo "ℹ️  Verifique se há conflitos ou se precisa fazer um git pull --rebase"
-fi
+echo -e "${GREEN}✅ Bot atualizado com sucesso!${NC}"
