@@ -1,8 +1,6 @@
 // campominado.js
-const jogos = {}; // Armazena os jogos ativos
-
+const jogos = {};
 const letras = 'abcdefgh';
-const numeros = '12345678';
 
 function gerarTabuleiro() {
   const minas = new Set();
@@ -12,14 +10,14 @@ function gerarTabuleiro() {
     minas.add(`${linha},${coluna}`);
   }
 
-  const tabuleiro = Array.from({ length: 8 }, () => Array(8).fill('⬜'));
+  const tabuleiro = Array.from({ length: 8 }, () => Array(8).fill('⬛'));
   return { minas, revelado: new Set(), tabuleiro };
 }
 
 function mostrarTabuleiro(jogo) {
   let visual = '   1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣\n';
   for (let i = 0; i < 8; i++) {
-    visual += `${letras[i]} `;
+    visual += `${letras[i]}  `;
     for (let j = 0; j < 8; j++) {
       const key = `${i},${j}`;
       visual += jogo.revelado.has(key) ? jogo.tabuleiro[i][j] : '⬛';
@@ -29,51 +27,19 @@ function mostrarTabuleiro(jogo) {
   return visual;
 }
 
-function contarMinasAoRedor(minas, i, j) {
-  let count = 0;
-  for (let dx = -1; dx <= 1; dx++) {
-    for (let dy = -1; dy <= 1; dy++) {
-      if (dx === 0 && dy === 0) continue;
-      const ni = i + dx, nj = j + dy;
-      if (ni >= 0 && ni < 8 && nj >= 0 && nj < 8 && minas.has(`${ni},${nj}`)) {
-        count++;
-      }
-    }
-  }
-  return count;
-}
-
 function revelar(jogo, i, j) {
   const key = `${i},${j}`;
   if (jogo.revelado.has(key)) return;
 
-  const minas = jogo.minas;
-  const tabuleiro = jogo.tabuleiro;
-
-  if (minas.has(key)) {
-    tabuleiro[i][j] = '💣';
+  if (jogo.minas.has(key)) {
+    jogo.tabuleiro[i][j] = '💣';
     jogo.revelado.add(key);
     jogo.status = 'perdeu';
     return;
   }
 
-  const count = contarMinasAoRedor(minas, i, j);
-  tabuleiro[i][j] = count === 0 ? '⬜' : `${count}️⃣`;
+  jogo.tabuleiro[i][j] = '🟩';
   jogo.revelado.add(key);
-
-  if (count === 0) {
-    // Expansão recursiva
-    for (let dx = -1; dx <= 1; dx++) {
-      for (let dy = -1; dy <= 1; dy++) {
-        if (dx !== 0 || dy !== 0) {
-          const ni = i + dx, nj = j + dy;
-          if (ni >= 0 && ni < 8 && nj >= 0 && nj < 8) {
-            revelar(jogo, ni, nj);
-          }
-        }
-      }
-    }
-  }
 }
 
 function iniciarJogo(chatId, jogador) {
@@ -90,8 +56,12 @@ function jogar(chatId, jogador, jogada) {
 
   if (jogador !== jogo.jogador) return '⏳ Aguarde sua vez ou inicie um novo jogo.';
 
+  if (!/^[a-h][1-8]$/i.test(jogada)) {
+    return '❌ Jogada inválida. Use de *a1* até *h8*. Exemplo: b3';
+  }
+
   const letra = jogada[0].toLowerCase();
-  const numero = jogada[1];
+  const numero = jogada.slice(1);
   const i = letras.indexOf(letra);
   const j = parseInt(numero) - 1;
 
@@ -100,12 +70,19 @@ function jogar(chatId, jogador, jogada) {
   revelar(jogo, i, j);
 
   if (jogo.status === 'perdeu') {
-    const minas = jogo.minas;
-    minas.forEach(m => {
-      const [x, y] = m.split(',').map(Number);
-      jogo.tabuleiro[x][y] = '💣';
-      jogo.revelado.add(`${x},${y}`);
-    });
+    // Revela todas as minas
+    for (let x = 0; x < 8; x++) {
+      for (let y = 0; y < 8; y++) {
+        const key = `${x},${y}`;
+        if (!jogo.revelado.has(key)) {
+          if (jogo.minas.has(key)) {
+            jogo.tabuleiro[x][y] = '💣';
+            jogo.revelado.add(key);
+          }
+        }
+      }
+    }
+
     const fim = mostrarTabuleiro(jogo);
     delete jogos[chatId];
     return `💥 *BOOM! Você perdeu!*\n\n${fim}`;
@@ -118,7 +95,7 @@ function jogar(chatId, jogador, jogada) {
     return `🎉 *Parabéns! Você venceu o Campo Minado!*\n\n${fim}`;
   }
 
-  return `🧩 *Campo Minado - Jogando...*\n\n${mostrarTabuleiro(jogo)}`;
+  return `🧨 *Campo Minado - Jogando...*\n\n${mostrarTabuleiro(jogo)}`;
 }
 
 module.exports = {
