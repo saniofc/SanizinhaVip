@@ -1,4 +1,4 @@
-# 💕🌸✨SanizinhaVip✨🌸💕
+# 💕🌸✨SanizinhaBot✨🌸💕
 
 ![BOT](https://img.shields.io/badge/BOT-MULTI%20DEVICE-blue?style=for-the-badge)
 ![AUTOR](https://img.shields.io/badge/AUTOR-saniofc-orange?style=for-the-badge)
@@ -34,4 +34,4 @@ termux-setup-storage
 ```
 ### 4° Comando
 ```bash
-git clone https://github.com/saniofc/SanizinhaVip && cd SanizinhaVip && npm install --no-bin-links && bash sani.sh
+git clone https://github.com/saniofc/SanizinhaBot && cd SanizinhaBot && npm install --no-bin-links && bash sani.sh
