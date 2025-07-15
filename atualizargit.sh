@@ -5,7 +5,7 @@ echo "🔄 Atualizando repositório..."
 echo ""
 
 git add .
-git commit -m "Atualização automática"
+git commit -m "Atualização automática" || echo "⚠️ Nada novo pra commitar"
 
 echo ""
 echo "📤 Enviando para o repositório remoto..."
@@ -29,7 +29,8 @@ else
     echo "✅ Repositório atualizado com sucesso após rebase!"
   else
     echo ""
-    echo "❌ Ainda falhou ao enviar após rebase."
-    echo "   ➤ Verifique conflitos ou mensagens de erro acima."
+    echo "❌ Ainda falhou ao enviar após rebase. Forçando push..."
+    echo ""
+    git push --force
   fi
 fi
