@@ -22,15 +22,15 @@
 
 ### 1° Comando
 ```bash
-pkg upgrade -y && pkg update -y && pkg install -y nodejs git ffmpeg imagemagick
+pkg upgrade -y && pkg update -y && pkg install -y nodejs git ffmpeg imagemagick python && pkg update && pkg upgrade -y && pkg install python ffmpeg -y && pip install yt-dlp
 ```
 ### 2° Comando
 ```bash
-cd /sdcard
+termux-setup-storage
 ```
 ### 3° Comando
 ```bash
-termux-setup-storage
+cd /sdcard
 ```
 ### 4° Comando
 ```bash
