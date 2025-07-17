@@ -1,11 +1,12 @@
 {
   "nome": "Geral",
   "listanegra": [],
-  "antilink": false,
+  "antilink": true,
   "antipromote": false,
-  "antiporno": false,
-  "antifake": false,
-  "blockgp": false,
-  "bemvindo": false,
-  "legendabv": "💕Oiê #membro#"
+  "antiporno": true,
+  "antifake": true,
+  "blockgp": true,
+  "bemvindo": true,
+  "legendabv": "💕Oiê #membro#",
+  "antitrava": true
 }

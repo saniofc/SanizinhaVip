@@ -2,31 +2,25 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const info = require('../dono/info.json');
-
 module.exports = async function menuCommand(msg, sock, from) {
   try {
     const sender = msg.key.participant || msg.participant || msg.key.remoteJid || from;
     const userTag = `@${sender.split('@')[0]}`;
     const isDono = sender.includes(info.numerodono);
-
     const groupMetadata = await sock.groupMetadata(from);
     const isAdmin = groupMetadata.participants?.some(p =>
       p.id === sender && (p.admin === 'admin' || p.admin === 'superadmin')
     );
     const admStatus = isAdmin ? '✅' : '❌';
-
     await sock.sendMessage(from, { react: { text: '🙇🏻‍♀️', key: msg.key } });
-
     const hora = new Date().toLocaleTimeString('pt-BR', {
       timeZone: 'America/Sao_Paulo'
     });
-
     const uptime = process.uptime();
     const uptimeHoras = Math.floor(uptime / 3600);
     const uptimeMin = Math.floor((uptime % 3600) / 60);
     const uptimeSeg = Math.floor(uptime % 60);
-
-    const thumbnailUrl = 'https://i.postimg.cc/sxFQnVj5/atual.jpg';
+    const thumbnailUrl = 'https://files.catbox.moe/1716db.jpg';
     const getBuffer = async (url) => {
       try {
         const res = await axios.get(url, { responseType: 'arraybuffer' });
@@ -37,7 +31,6 @@ module.exports = async function menuCommand(msg, sock, from) {
       }
     };
     const thumbnail = await getBuffer(thumbnailUrl);
-
     const menuText = `╭─❍❍❍❍🩸❍❍❍❍─╮
 │✭ 𝗢𝗶𝗶 ${userTag}
 │✭ 𝗼𝗻𝗹𝗶𝗻𝗲 𝗮: ${uptimeHoras}𝗵 ${uptimeMin}𝗺 ${uptimeSeg}𝘀
@@ -98,10 +91,9 @@ module.exports = async function menuCommand(msg, sock, from) {
 > 🎶 ► videopraaudio
 
 💭INFOS/IDEIA💡
-> 🪐 ► infogp
+> 🪐 ► infogp    
 > 🪐 ► ideia
-─────•𝑺𝒂𝒏𝒊𝒛𝒊𝒏𝒉𝒂𝑩𝒐𝒕•─────`;
-
+❃═══✰${nomebot}✰═══❃`;
     await sock.sendMessage(from, {
       text: menuText,
       mentions: [sender],

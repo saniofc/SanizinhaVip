@@ -19,7 +19,7 @@ module.exports = async function menuAdmCommand(msg, sock, from) {
     try {
       ppUrl = await sock.profilePictureUrl(from, 'image');
     } catch {
-      ppUrl = 'https://files.catbox.moe/g3o2dt.gif';
+      ppUrl = 'https://files.catbox.moe/1716db.jpg';
     }
     const thumbnail = await axios.get(ppUrl, { responseType: 'arraybuffer' }).then(res => res.data);
     const menuAdmText = `╭─❍❍❍❍❍❍❍❍─╮
@@ -49,7 +49,7 @@ module.exports = async function menuAdmCommand(msg, sock, from) {
 > 🛡️ ► blockgp
 > 🛡️ ► marca
 > 🛡️ ► totag
-> 🛡️ ► ativa <recursos>
+> 🛡️ ► avt
 
 💎 COMANDOS DO DONO
 > 💎 ► reiniciar
@@ -63,8 +63,9 @@ module.exports = async function menuAdmCommand(msg, sock, from) {
 > 💎 ► bloock
 > 💎 ► unbloock
 > 💎 ► listblock
-
-─────•𝑺𝒂𝒏𝒊𝒛𝒊𝒏𝒉𝒂 𝑩𝒐𝒕•─────`;
+> 💎 ► nomebot
+> 💎 ► botoff / boton
+❃═══✰${nomebot}✰═══❃`;
     await sock.sendMessage(from, {
       text: menuAdmText,
       mentions: [sender],

@@ -71,6 +71,21 @@ async function STBLK() {
       });
     }
    const code = new Boom(lastDisconnect?.error)?.output?.statusCode;
+   // 🚨 Aviso de possível banimento
+try {
+  const statusCode = lastDisconnect?.error?.output?.statusCode;
+  const reason = lastDisconnect?.error?.output?.payload?.message;
+  if (statusCode === 401 || (reason && reason.toLowerCase().includes('logged out'))) {
+    const donoJson = JSON.parse(fs.readFileSync('./dono/info.json'));
+    const donoJid = donoJson.numerodono.replace(/\D/g, '') + '@s.whatsapp.net';
+    await sock.sendMessage(donoJid, {
+      text: '👀 tô sentindo o Marckzukemberck no meu cangote kkk\n🚨 O bot pode ter sido banido ou desconectado, verifica aí chefia!'
+    });
+  }
+} catch (err) {
+  console.error('Erro ao tentar avisar o dono sobre possível ban:', err);
+}       // ========== progeto em pausa ========= //
+
     if (connection === 'close') {
       if (code !== DisconnectReason.loggedOut) {
         console.log(colors.yellow('Conexão fechada, tentando reconectar...'));
@@ -88,12 +103,12 @@ async function STBLK() {
 ░╚═══██╗██╔══██║██║╚████║██║██╔══╝░░██║██║╚████║██╔══██║██╔══██║
 ██████╔╝██║░░██║██║░╚███║██║███████╗██║██║░╚███║██║░░██║██║░░██║
 ╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚═╝╚══════╝╚═╝╚═╝░░╚══╝╚═╝░░╚═╝╚═╝░░╚═╝
-██╗░░░██╗░░░███╗░░
-██║░░░██║░░█████║░
-╚██╗░██╔╝░╚██╔██║░
-░╚████╔╝░░░╚═╝██║░
-░░╚██╔╝░░░███████║
-░░░╚═╝░░░░╚══════╝`;
+                        ██╗░░░██╗░░░███╗
+                        ██║░░░██║░░█████║
+                        ╚██╗░██╔╝░╚██╔██║
+                        ░╚████╔╝░░░╚═╝██║
+                        ░░╚██╔╝░░░███████║
+                        ░░░╚═╝░░░░╚══════╝`;
       const usernameBot = process.env.BOT_NAME || "SanizinhaBot";
       console.log(gradient.pastel.multiline(texto));
       console.log(chalk.yellow(`*ੈ🌸‧₊˚Sistema conectado com sucesso°❀⋆.ೃ࿔*･!`));

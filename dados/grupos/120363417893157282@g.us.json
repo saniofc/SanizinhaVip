@@ -1,11 +1,11 @@
 {
   "nome": "𝖁𝖊𝖌𝖆𝖘 𝖌𝖗𝖔𝖚𝖕 ❦",
   "listanegra": [],
-  "antilink": false,
-  "antipromote": false,
-  "antiporno": false,
+  "antilink": true,
+  "antipromote": true,
+  "antiporno": true,
   "antifake": false,
-  "blockgp": false,
-  "bemvindo": false,
+  "blockgp": true,
+  "bemvindo": true,
   "legendabv": "💕Oiê #membro#"
 }
