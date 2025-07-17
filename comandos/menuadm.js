@@ -58,6 +58,8 @@ module.exports = async function menuAdmCommand(msg, sock, from) {
 > 💎 ► entrargp
 > 💎 ► sairgp
 > 💎 ► tmss
+> 💎 ► iaon - ligar ia
+> 💎 ► xiubot - desliga ia
 > 💎 ► novodono
 > 💎 ► banghost
 > 💎 ► antipromote
