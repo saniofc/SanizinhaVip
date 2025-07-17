@@ -1,5 +1,6 @@
 const axios = require('axios');
-const info = require('../dono/info.json');
+const { nomebot } = require('../dono/info.json');  // Importa nomebot do JSON
+
 module.exports = async function menuAdmCommand(msg, sock, from) {
   try {
     const sender = msg.key.participant || msg.participant || msg.key.remoteJid || from;
@@ -73,7 +74,7 @@ module.exports = async function menuAdmCommand(msg, sock, from) {
         mentionedJid: [sender],
         externalAdReply: {
           title: '👑 𝗠𝗘𝗡𝗨 𝗔𝗗𝗠 👑',
-          body: `❤️‍🔥 ${info.nomebot}`,
+          body: `❤️‍🔥 ${nomebot}`,
           mediaType: 1,
           previewType: 'PHOTO',
           renderLargerThumbnail: false,

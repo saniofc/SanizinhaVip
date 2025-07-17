@@ -1,12 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const info = require('../dono/info.json');
+const { nomebot, numerodono } = require('../dono/info.json');  // Importa só o que precisa
+
 module.exports = async function menuCommand(msg, sock, from) {
   try {
     const sender = msg.key.participant || msg.participant || msg.key.remoteJid || from;
     const userTag = `@${sender.split('@')[0]}`;
-    const isDono = sender.includes(info.numerodono);
+    const isDono = sender.includes(numerodono);
     const groupMetadata = await sock.groupMetadata(from);
     const isAdmin = groupMetadata.participants?.some(p =>
       p.id === sender && (p.admin === 'admin' || p.admin === 'superadmin')
@@ -101,7 +102,7 @@ module.exports = async function menuCommand(msg, sock, from) {
         mentionedJid: [sender],
         externalAdReply: {
           title: '🪐 𝗠𝗘𝗡𝗨 𝗜𝗡𝗜𝗖𝗜𝗔𝗟 ✨',
-          body: `❤️‍🔥 ${info.nomebot}`,
+          body: `❤️‍🔥 ${nomebot}`,
           mediaType: 1,
           previewType: 'PHOTO',
           renderLargerThumbnail: false,

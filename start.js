@@ -29,12 +29,15 @@ async function STBLK() {
   });  
   setSock(sock);
   sock.ev.on('messages.upsert', async (m) => {
-    try {
-      await upsert(m, sock);
-    } catch (e) {
-      console.error('Erro no messages.upsert:', e);
-    }
-  });
+  try {
+    const msg = m.messages[0];
+    if (!msg || !msg.message || msg.message.protocolMessage) return;
+
+    await upsert(m, sock);
+  } catch (e) {
+    console.error('Erro no messages.upsert:', e);
+  }
+});
   sock.ev.on('group-participants.update', async (update) => {
     try {
       await onGroupParticipantsUpdate(update, sock);
