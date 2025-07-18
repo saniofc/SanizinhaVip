@@ -1,19 +1,27 @@
-#!/bin/bash
-# Cores para o terminal
+#!/bin/sh
+# Cores
 GREEN='\033[1;32m'
 BLUE='\033[1;34m'
-NC='\033[0m' # Sem cor
+NC='\033[0m'
 
 clear
-echo -e "${BLUE}=========================================="
-echo -e "${GREEN}     🔄 Atualizando bot Sanizinha...     "
-echo -e "${BLUE}==========================================${NC}"
+printf "${BLUE}==========================================\n"
+printf "${GREEN}     ⌛ Atualizando bot Sanizinha...     \n"
+printf "${BLUE}==========================================${NC}\n"
 sleep 1
 
 # Adiciona exceção para o diretório
 git config --global --add safe.directory /storage/emulated/0/SanizinhaBot
 
-# Atualizando o repositório
+# Vai para a pasta do bot
+cd /storage/emulated/0/SanizinhaBot || exit
+
+# Atualiza o repositório
 git pull origin main
 
-echo -e "${GREEN}✅ Bot atualizado com sucesso!${NC}"
+# Mensagem final
+printf "${GREEN}✅BOT ATUALIZADO💕😻✨!${NC}\n"
+printf "${BLUE}🚀 Iniciando o bot...${NC}\n"
+
+# Inicia o bot
+sh sani.sh
