@@ -10,13 +10,13 @@ printf "${GREEN}     ⌛ Atualizando Sanizinha...     \n"
 printf "${BLUE}==========================================${NC}\n"
 sleep 1
 
-# Define pasta
-BOT_DIR="/storage/emulated/0/SanizinhaBot"
+# Define pasta do bot como a pasta atual
+BOT_DIR="$(pwd)"
 
 # Adiciona exceção para o diretório
 git config --global --add safe.directory "$BOT_DIR"
 
-# Vai para a pasta
+# Vai para a pasta (na prática já está nela, mas é bom garantir)
 cd "$BOT_DIR" || exit
 
 # Remove todas alterações locais e força o conteúdo do repositório remoto
