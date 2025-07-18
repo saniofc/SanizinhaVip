@@ -16,11 +16,11 @@ git config --global --add safe.directory /storage/emulated/0/SanizinhaBot
 # Vai para a pasta do bot
 cd /storage/emulated/0/SanizinhaBot || exit
 
-# Atualiza o repositório
-git pull origin main
+# Atualiza o repositório com rebase para evitar conflito de branches
+git pull --rebase origin main
 
 # Mensagem final
-printf "${GREEN}✅BOT ATUALIZADO💕😻✨!${NC}\n"
+printf "${GREEN}✅ BOT ATUALIZADO COM SUCESSO! 💕😻✨${NC}\n"
 printf "${BLUE}🚀 Iniciando o bot...${NC}\n"
 
 # Inicia o bot
